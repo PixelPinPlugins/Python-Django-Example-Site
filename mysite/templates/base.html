@@ -1,0 +1,54 @@
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Auth</title>
+  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class = "navbar-header">
+        <a class="navbar-brand" href="#">PixelPin Auth Example Site</a>
+      </div>
+      <ul class="nav navbar-nav">
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+        <li><a href="{% url 'password' %}">Change Password</a></li>
+        <li><a href="{% url 'logout' %}">Sign Out</a></li>
+      {% else %}
+        <li><a href="{% url 'login' %}">Sign In</a> </li>
+        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+      {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+    <!--<h1>Simple Auth</h1>
+    {% if user.is_authenticated %}
+      You are signed in as <strong>{{ user.username }}</strong> /
+      <a href="{% url 'home' %}">home</a> /
+      <a href="{% url 'profile' %}">profile</a> /
+      <a href="{% url 'password' %}">change password</a> /
+      <a href="{% url 'logout' %}">logout</a>
+    {% else %}
+      <a href="{% url 'login' %}">login</a> /
+      <a href="{% url 'signup' %}">signup</a>
+    {% endif %}-->
+    <hr>
+  </header>
+  <main>
+    {% for message in messages %}
+      <p style="color: {% if message.tags == 'success' %}green{% elif message.tags == 'error' %}red{% endif %}">
+        {{ message }}
+      </p>
+    {% endfor %}
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>
